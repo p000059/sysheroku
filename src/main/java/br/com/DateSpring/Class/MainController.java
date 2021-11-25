@@ -5,10 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import br.com.DateSpring.Class.UserSpring;
-import java.util.ArrayList;
-import java.util.List;
-import static org.hibernate.criterion.Projections.id;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/home")
-
+@CrossOrigin(origins = "*")
 public class MainController {
     
     @Autowired
@@ -28,7 +26,8 @@ public class MainController {
     
     @GetMapping(path="/readAll")
     public Iterable<UserSpring> getAllUsers(){
-        return userRepository.findAll();
+        return userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        
     }
     
     @PostMapping(path="/create")    
